@@ -13,11 +13,10 @@ import useFetch from "@/hooks/use-fetch";
 import { usernameSchema } from "@/app/lib/validators";
 import { getLatestUpdates } from "@/actions/dashboard";
 import { format } from "date-fns";
-import { useToast } from "@/hooks/use-toast";
+import toast from "react-hot-toast";
 export default function DashboardPage() {
   const { user, isLoaded} = useUser();
   const [origin,setOrigin] = useState("")
-  const { toast } = useToast()
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -54,13 +53,9 @@ export default function DashboardPage() {
     try {
       await fnUpdateUsername(data.username);
       await user.reload()
-      toast({
-        title: "Success",
-        description: "Your username has been updated",
-        type: "success",
-        duration: 3000,
-      })
+      toast.success("Username updated");
     } catch (error) {
+      toast.error("something went wrong")
       console.error(error);
     }
   };

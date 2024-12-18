@@ -17,7 +17,7 @@ import { updateAvailability } from "@/actions/availability";
 import { availabilitySchema } from "@/app/lib/validators";
 import { timeSlots } from "../data";
 import useFetch from "@/hooks/use-fetch";
-
+import toast from "react-hot-toast";
 export default function AvailabilityForm({ initialData }) {
   const {
     register,
@@ -38,7 +38,13 @@ export default function AvailabilityForm({ initialData }) {
   } = useFetch(updateAvailability);
 
   const onSubmit = async (data) => {
-    await fnupdateAvailability(data);
+    try {
+      await fnupdateAvailability(data);
+      toast.success("Availability updated")
+    } catch (error) {
+      toast.error("Something went wrong")
+      console.error(error);
+    }
   };
 
   return (
