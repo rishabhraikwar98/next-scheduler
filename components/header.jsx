@@ -18,7 +18,7 @@ async function Header() {
           width="150"
           height="60"
           alt="Next Scheduler Logo"
-          className="h-12 w-auto"
+          className="h-10 w-auto"
         />
       </Link>
 
