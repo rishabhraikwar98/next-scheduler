@@ -4,13 +4,14 @@ import EventCard from "@/components/event-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export async function generateMetadata({ params }) {
-  const user = await getUserByUsername(params?.username);
+  const { username } = await params;
+  const user = await getUserByUsername(username);
 
   if (!user) {
     return {
       title: "User Not Found",
     };
-  }   
+  }
 
   return {
     title: `${user.name}'s Profile | Next Scheduler`,
@@ -19,7 +20,9 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function UserProfilePage({ params }) {
-  const user = await getUserByUsername(params?.username);
+  const { username } = await params;
+
+  const user = await getUserByUsername(username);
 
   if (!user) {
     notFound();
@@ -47,7 +50,7 @@ export default async function UserProfilePage({ params }) {
             <EventCard
               key={event.id}
               event={event}
-              username={params?.username}
+              username={username}
               isPublic
             />
           ))}

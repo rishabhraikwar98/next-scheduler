@@ -7,7 +7,8 @@ import EventDetails from "./_components/event-details";
 import BookingForm from "./_components/booking-form";
 
 export async function generateMetadata({ params }) {
-  const event = await getEventDetails(params.username, params.eventId);
+  const {username,eventId} = await params
+  const event = await getEventDetails(username, eventId);
 
   if (!event) {
     return {
@@ -22,8 +23,9 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function EventBookingPage({ params }) {
-  const event = await getEventDetails(params.username, params.eventId);
-  const availability = await getEventAvailability(params.eventId);
+  const {username, eventId} = await params
+  const event = await getEventDetails(username, eventId);
+  const availability = await getEventAvailability(eventId);
 
   if (!event) {
     notFound();
