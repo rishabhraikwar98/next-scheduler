@@ -36,9 +36,15 @@ const EventForm = ({ onSubmitForm, initialData = {} }) => {
   const { loading, error, fn: fnCreateEvent } = useFetch(createEvent);
 
   const onSubmit = async (data) => {
-    await fnCreateEvent(data);
-    if (!loading && !error) onSubmitForm();
-    router.refresh(); // Refresh the page to show updated data
+    try {
+      await fnCreateEvent(data);
+      toast.success("New event created");
+    } catch (error) {
+      console.error(error);
+    } finally {
+      if (!loading && !error) onSubmitForm();
+      router.refresh();
+    }
   };
 
   return (

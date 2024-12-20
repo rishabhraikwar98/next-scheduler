@@ -1,6 +1,7 @@
 "use client";
 
 import { deleteEvent } from "@/actions/events";
+import { truncateText } from "@/app/lib/truncateText";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,10 +15,12 @@ import useFetch from "@/hooks/use-fetch";
 import { Link, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
 export default function EventCard({ event, username, isPublic = false }) {
   const [isCopied, setIsCopied] = useState(false);
   const router = useRouter();
+
+  const text =
+    "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc";
 
   const handleCopy = async () => {
     try {
@@ -35,8 +38,15 @@ export default function EventCard({ event, username, isPublic = false }) {
 
   const handleDelete = async () => {
     if (window?.confirm("Are you sure you want to delete this event?")) {
-      await fnDeleteEvent(event.id);
-      router.refresh();
+      try {
+        await fnDeleteEvent(event.id);
+        toast.success("Event deleted");
+      } catch (error) {
+        toast.error("Something went wrong");
+        console.error(error);
+      } finally {
+        router.refresh();
+      }
     }
   };
 
@@ -64,7 +74,7 @@ export default function EventCard({ event, username, isPublic = false }) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <p>{event.description.substring(0, event.description.indexOf("."))}.</p>
+        <p>{truncateText(event.description, 55)}.</p>
       </CardContent>
       {!isPublic && (
         <CardFooter className="flex gap-2">

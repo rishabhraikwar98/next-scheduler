@@ -15,14 +15,14 @@ import { getLatestUpdates } from "@/actions/dashboard";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
 export default function DashboardPage() {
-  const { user, isLoaded} = useUser();
-  const [origin,setOrigin] = useState("")
+  const { user, isLoaded } = useUser();
+  const [origin, setOrigin] = useState("");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       setOrigin(window.location.origin);
     }
-  },[origin])
+  }, [origin]);
 
   const {
     register,
@@ -52,11 +52,12 @@ export default function DashboardPage() {
   const onSubmit = async (data) => {
     try {
       await fnUpdateUsername(data.username);
-      await user.reload()
       toast.success("Username updated");
     } catch (error) {
-      toast.error("something went wrong")
+      toast.error("Something went wrong");
       console.error(error);
+    } finally {
+      await user.reload();
     }
   };
 
@@ -101,10 +102,12 @@ export default function DashboardPage() {
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
-              {origin&&<div className="flex items-center gap-2">
-                <span>{origin}/</span>
-                <Input {...register("username")} placeholder="username" />
-              </div>}
+              {origin && (
+                <div className="flex items-center gap-2">
+                  <span>{origin}/</span>
+                  <Input {...register("username")} placeholder="username" />
+                </div>
+              )}
               {errors.username && (
                 <p className="text-red-500 text-sm mt-1">
                   {errors.username.message}
