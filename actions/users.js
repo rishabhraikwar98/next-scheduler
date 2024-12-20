@@ -5,7 +5,7 @@ import { auth} from "@clerk/nextjs/server";
 import { clerkClient } from "@clerk/clerk-sdk-node";
 
 export async function updateUsername(username) {
-  const { userId } = await auth();
+  const { userId } = auth();
   if (!userId) {
     throw new Error("Unauthorized");
   }

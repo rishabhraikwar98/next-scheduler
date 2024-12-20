@@ -5,7 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import { eventSchema } from "@/app/lib/validators";
 
 export async function createEvent(data) {
-  const { userId } = await auth();
+  const { userId } = auth();
 
   if (!userId) {
     throw new Error("Unauthorized");
@@ -32,7 +32,7 @@ export async function createEvent(data) {
 }
 
 export async function getUserEvents() {
-  const { userId } = await auth();
+  const { userId } = auth();
   if (!userId) {
     throw new Error("Unauthorized");
   }
@@ -59,7 +59,7 @@ export async function getUserEvents() {
 }
 
 export async function deleteEvent(eventId) {
-  const { userId } = await auth();
+  const { userId } = auth();
   if (!userId) {
     throw new Error("Unauthorized");
   }
