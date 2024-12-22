@@ -43,7 +43,6 @@ export default function EventCard({ event, username, isPublic = false }) {
         toast.success("Event deleted");
       } catch (error) {
         toast.error("Something went wrong");
-        console.error(error);
       } finally {
         router.refresh();
       }

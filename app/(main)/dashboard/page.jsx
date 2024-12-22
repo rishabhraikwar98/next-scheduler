@@ -55,7 +55,6 @@ export default function DashboardPage() {
       toast.success("Username updated");
     } catch (error) {
       toast.error("Something went wrong");
-      console.error(error);
     } finally {
       await user.reload();
     }

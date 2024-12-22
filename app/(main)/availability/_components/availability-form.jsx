@@ -43,7 +43,6 @@ export default function AvailabilityForm({ initialData }) {
       toast.success("Availability updated")
     } catch (error) {
       toast.error("Something went wrong")
-      console.error(error);
     }
   };
 
