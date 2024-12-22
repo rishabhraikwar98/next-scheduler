@@ -17,7 +17,6 @@ export default function CancelMeetingButton({ meetingId }) {
         await fnCancelMeeting(meetingId);
         toast.success("Meeting canceled");
       } catch (error) {
-        console.error(error);
         toast.error("Something went wrong");
       } finally {
         router.refresh();

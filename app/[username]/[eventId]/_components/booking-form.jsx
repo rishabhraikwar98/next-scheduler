@@ -12,6 +12,7 @@ import { createBooking } from "@/actions/bookings";
 import { bookingSchema } from "@/app/lib/validators";
 import "react-day-picker/style.css";
 import useFetch from "@/hooks/use-fetch";
+import toast from "react-hot-toast";
 
 export default function BookingForm({ event, availability }) {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -41,7 +42,7 @@ export default function BookingForm({ event, availability }) {
   const { loading, data, fn: fnCreateBooking } = useFetch(createBooking);
 
   const onSubmit = async (data) => {
-    console.log("Form submitted with data:", data);
+    // console.log("Form submitted with data:", data);
 
     if (!selectedDate || !selectedTime) {
       console.error("Date or time not selected");
@@ -62,7 +63,12 @@ export default function BookingForm({ event, availability }) {
       additionalInfo: data.additionalInfo,
     };
 
-    await fnCreateBooking(bookingData);
+    try {
+      await fnCreateBooking(bookingData);
+      toast.success("Booking created successfully");
+    } catch (error) {
+      toast.error("Error creating booking");
+    }
   };
 
   const availableDays = availability.map((day) => new Date(day.date));
@@ -73,7 +79,7 @@ export default function BookingForm({ event, availability }) {
       )?.slots || []
     : [];
 
-  if (data) {
+  if (data?.success === true) {
     return (
       <div className="text-center p-10 border bg-white">
         <h2 className="text-2xl font-bold mb-4">Booking successful!</h2>

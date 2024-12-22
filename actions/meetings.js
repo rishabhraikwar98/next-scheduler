@@ -83,6 +83,8 @@ export async function cancelMeeting(meetingId) {
 
   try {
     await calendar.events.delete({
+      sendUpdates: "all",
+      sendNotifications: true,
       calendarId: "primary",
       eventId: meeting.googleEventId,
     });

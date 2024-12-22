@@ -17,11 +17,11 @@ export async function createBooking(bookingData) {
     }
 
     // Get the event creator's Google OAuth token from Clerk
-    const { data } = await clerkClient.users.getUserOauthAccessToken(
+    const { data } = await clerkClient().users.getUserOauthAccessToken(
       event.user.clerkUserId,
       "oauth_google"
     );
-
+    
     const token = data[0]?.token;
 
     if (!token) {
@@ -38,6 +38,8 @@ export async function createBooking(bookingData) {
     const meetResponse = await calendar.events.insert({
       calendarId: "primary",
       conferenceDataVersion: 1,
+      sendUpdates: "all",
+      sendNotifications: true,
       requestBody: {
         summary: `${bookingData.name} - ${event.title}`,
         description: bookingData.additionalInfo,
