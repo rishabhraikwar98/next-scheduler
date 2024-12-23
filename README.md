@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Next Scheduler
 
-First, run the development server:
+Next Scheduler is a modern event management and booking platform (Calendly Clone) built with Next.js, Clerk for authentication, Google Calendar integration for seamless scheduling, and Prisma for database management. Users can create and share event links, manage bookings, and generate Google Meet links automatically for events. Designed for ease of use and efficiency, it ensures a streamlined scheduling experience for hosts and attendees.
+
+
+
+## Screenshots
+
+![App Screenshot](https://res.cloudinary.com/dbdqc0uzq/image/upload/v1734941051/Screenshots/bbhzli7wsht61h95httd.png)
+
+## Technologies used
+
+- [Next Js](https://nextjs.org/docs) - React framwork for creating fullstack application.
+- [shadcn/ui](https://ui.shadcn.com/docs) - Beautifully designed components that you can copy and paste into your apps.
+- [Prisma](https://www.prisma.io/docs) -  A Node.js and TypeScript ORM with an intuitive data model, automated migrations, type-safety, and auto-completion.
+- [Neon DB](https://www.neon.tech) - Neon offers a serverless Postgres database platform for developers.
+- [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework.
+- [React hot toast](https://react-hot-toast.com/) - Toast notifications for React.
+
+## Run Locally
+
+Clone the project
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+  git clone https://github.com/rishabhraikwar98/next-scheduler
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Go to the project directory
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```bash
+  cd next-scheduler
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Install dependencies
 
-## Learn More
+```bash
+  npm install
+```
+Genrating tables
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+  prisma genrate
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Start the server
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+  npm run dev
+```
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Environment Variables
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+To run this project, you will need to add the following environment variables to your .env file
+
+`NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
+
+`CLERK_SECRET_KEY`
+
+`NEXT_PUBLIC_CLERK_SIGN_IN_URL`
+
+`NEXT_PUBLIC_CLERK_SIGN_UP_URL`
+
+`DATABASE_URL`
